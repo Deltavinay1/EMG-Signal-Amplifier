@@ -1,0 +1,21 @@
+* =========================================================
+* LM324 QUAD OP-AMP (14-pin package)
+* =========================================================
+
+* ---- Single Op-Amp section ----
+.SUBCKT LM324_OPAMP OUT IN- IN+ VCC+ VCC-
+E1 OUT 0 IN+ IN- 999k
+R1 OUT 0 100k
+.ENDS LM324_OPAMP
+
+* ---- Full Quad Op-Amp model ----
+* Pinout (DIP-14)
+* 1: OUT1  2: IN1-  3: IN1+  4: VCC+
+* 5: IN2+  6: IN2-  7: OUT2  8: OUT3
+* 9: IN3- 10: IN3+ 11: VCC- 12: IN4+ 13: IN4- 14: OUT4
+.SUBCKT LM324 1 2 3 4 5 6 7 8 9 10 11 12 13 14
+XOA 1 2 3 4 11 LM324_OPAMP
+XOB 7 6 5 4 11 LM324_OPAMP
+XOC 8 9 10 4 11 LM324_OPAMP
+XOD 14 13 12 4 11 LM324_OPAMP
+.ENDS LM324
